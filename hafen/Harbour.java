@@ -1,5 +1,5 @@
 package hafen;
- //Du Hurensohnb
+
 import java.util.Random;
 
 import linear.QueueWithViewer;
@@ -17,7 +17,7 @@ public class Harbour {
 	private StackWithViewer<Container> containerStackForSort;
 	private QueueWithViewer<Ship> waitingline;
 
-
+//Fff
 	// das folgende Attribut ist nur zu Testzwecken vorhanden, es muss ansonsten nicht beachtet werden
 	Ship testship = new Ship("Testship I", 187.45, "Hamburg",10);
 
