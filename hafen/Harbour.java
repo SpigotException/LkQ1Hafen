@@ -55,12 +55,14 @@ public class Harbour {
 		Ship s2 = new Ship("S2", 1000, "Rotterdam", 1);
 		Ship s3 = new Ship("S3", 1000, "Shanghai", 1);
 		Ship s4 = new Ship("S4", 1000, "Antwerpen", 1);
+		Ship s5 = new Ship("S5", 1000, "Antwerpen", 1);
 		
 		
 		waitingline.enqueue(s1);
 		waitingline.enqueue(s2);
 		waitingline.enqueue(s3);
 		waitingline.enqueue(s4);
+		waitingline.enqueue(s5);
 	
 		
 	}
@@ -286,6 +288,41 @@ public class Harbour {
 		}
 	}
  }
+	
+	public double approxWaitingLine() {
+		double result = 0;
+		QueueWithViewer<Ship> tempQue = new QueueWithViewer<Ship>();
+		
+		while(!waitingline.isEmpty()) {
+			result = result+2.5;
+			tempQue.enqueue(waitingline.front());
+			waitingline.dequeue();
+			
+		}	while(!tempQue.isEmpty()) {
+	
+			waitingline.enqueue(tempQue.front());
+			tempQue.dequeue();
+			
+		}
+	
+		return result;
+	}
+	
+	
+	public int numberOfFirstEmptyPositionAtAnchor() {
+		for(int i =0; i <shipsAtAnchor.length; i++) {
+			
+			System.out.println(shipsAtAnchor);
+
+			Ship currenShip = shipsAtAnchor[i];
+			if (currenShip == null){
+
+				return i;
+			}
+		}
+
+		return -1;
+	}
 
 	public int countShipsInHarbour() {
 		// TODO

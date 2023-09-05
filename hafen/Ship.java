@@ -83,8 +83,6 @@ public class Ship {
 		}
 
 		return -1;
-
-
 	}
 
 	public int numberOFEmptyPosition() {
@@ -98,10 +96,6 @@ public class Ship {
 			}
 		}
 		return result;
-
-
-
-
 	}
 
 public boolean checkIfFits(Container newContainer) {
