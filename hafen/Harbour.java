@@ -2,7 +2,7 @@ package hafen;
 
 import java.util.Random;
 
-
+import linear.QueueWithViewer;
 import linear.StackWithViewer;
 import gui.GUI;
 
@@ -15,6 +15,7 @@ public class Harbour {
 	private StackWithViewer<Container> containerStack;
 	private StackWithViewer<Container> containerStack1;
 	private StackWithViewer<Container> containerStackForSort;
+	private QueueWithViewer<Ship> waitingline;
 
 
 	// das folgende Attribut ist nur zu Testzwecken vorhanden, es muss ansonsten nicht beachtet werden
@@ -24,7 +25,9 @@ public class Harbour {
 	public Harbour(String country, String city, int size) {		
 		this.country = country;
 		this.city = city;
+	
 		this.shipsAtAnchor = new Ship[size];
+		waitingline = new QueueWithViewer<Ship>();
 
 		containerStack = new StackWithViewer<Container>();
 		containerStack1 = new StackWithViewer<Container>();
@@ -32,6 +35,7 @@ public class Harbour {
 		fillCargoStack();
 		testship.load(new Container(15.5, 13.3));
 		testship.load(new Container(22.3, 0.2));	
+		createline();
 
 	}
 	public void TestShips() {
@@ -43,6 +47,22 @@ public class Harbour {
 		shipsAtAnchor[03] = s3;
 		Ship s4 = new Ship("S4", 1000, "Antwerpen", 1);
 		shipsAtAnchor[04] = s4;
+		
+		
+	}
+	public void createline() {
+		Ship s1 = new Ship("S1", 1000, "Lisbon", 1);
+		Ship s2 = new Ship("S2", 1000, "Rotterdam", 1);
+		Ship s3 = new Ship("S3", 1000, "Shanghai", 1);
+		Ship s4 = new Ship("S4", 1000, "Antwerpen", 1);
+		
+		
+		waitingline.enqueue(s1);
+		waitingline.enqueue(s2);
+		waitingline.enqueue(s3);
+		waitingline.enqueue(s4);
+	
+		
 	}
 
 
