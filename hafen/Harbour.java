@@ -202,7 +202,7 @@ public class Harbour {
 
 
 
-	public void sortContainerStack() {
+	public void sortContainerStackE() {
 		while(!containerStack.isEmpty()) {
 
 			Container current= containerStack.top();
