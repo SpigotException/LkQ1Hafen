@@ -1,5 +1,5 @@
 package hafen;
-//JakPie
+
 import java.util.Random;
 
 import linear.QueueWithViewer;
@@ -40,13 +40,15 @@ public class Harbour {
 	}
 	public void TestShips() {
 		Ship s1 = new Ship("S1", 1000, "Lisbon", 1);
-		shipsAtAnchor[01] = s1;
+		shipsAtAnchor[00] = s1;
 		Ship s2 = new Ship("S2", 1000, "Rotterdam", 1);
-		shipsAtAnchor[02] = s2;
+		shipsAtAnchor[01] = s2;
 		Ship s3 = new Ship("S3", 1000, "Shanghai", 1);
-		shipsAtAnchor[03] = s3;
+		shipsAtAnchor[02] = s3;
 		Ship s4 = new Ship("S4", 1000, "Antwerpen", 1);
-		shipsAtAnchor[04] = s4;
+		shipsAtAnchor[03] = s4;
+		Ship s5 = new Ship("S5", 1000, "Antwerpen", 1);
+		shipsAtAnchor[04] = s5;
 		
 		
 	}
@@ -70,7 +72,7 @@ public class Harbour {
 
 	public void fillCargoStack() {
 		Container c1 = new Container(34, 1);
-		c1.setDestination("Lisbon");
+		c1.setDestination("test");
 		containerStack.push(c1);
 		Container c2 = new Container(100, 100);
 		c2.setDestination("Rotterdam");
@@ -79,7 +81,7 @@ public class Harbour {
 		c3.setDestination("Shanghai");
 		containerStack.push(c3);
 		Container c4 = new Container(113, 123);
-		c4.setDestination("Antwerpen");
+		c4.setDestination("Shanghai");
 		containerStack.push(c4);
 
 
@@ -323,16 +325,105 @@ public class Harbour {
 
 		return -1;
 	}
+	
+	public Ship findShipInLine() {
+		Ship result  = null;
+		QueueWithViewer<Ship> tempQue = new QueueWithViewer<Ship>();
+		while(waitingline.isEmpty() == false) {
+			if(	waitingline.front().getDestination().equals(containerStack.top().getDestination())) {
+				result = waitingline.front();
+			}
+			tempQue.enqueue(waitingline.front());
+			waitingline.dequeue();
+
+		}
+		while(!tempQue.isEmpty()) {
+
+			waitingline.enqueue(tempQue.front());
+			tempQue.dequeue();
+
+		}
+		return result;
+
+	}
+	public void deletShip(String pname) {
+		QueueWithViewer<Ship> tempQue = new QueueWithViewer<Ship>();
+		while (waitingline.isEmpty() == false) {
+			Ship ship = waitingline.front();
+
+			tempQue.enqueue(ship);
+
+			waitingline.dequeue();
+		}
+		while(!tempQue.isEmpty()) {
+			if (!tempQue.front().getName().equals(pname)) {
+				waitingline.enqueue(tempQue.front());
+			}
+
+			tempQue.dequeue();
+
+		}
+	}
+	
+	public void allEnterHarbour(){
+		
+		printShips();
+		System.out.println("____________________________________________");
+		while (waitingline.isEmpty() == false) {
+			Ship ship = waitingline.front();
+		
+
+				if (numberOfFirstEmptyPositionAtAnchor() != -1) {
+					shipsAtAnchor[this.numberOfFirstEmptyPositionAtAnchor()]= ship;
+					waitingline.dequeue();
+					
+				}else
+					System.out.println("kein Platz");
+			
+			
+			
+		}
+		System.out.println("____________________________________________");
+		printShips();
+		System.out.println("____________________________________________");
+	}
+	
+	
+	public boolean toFront(String pname) {
+
+			QueueWithViewer<Ship> tempQue = new QueueWithViewer<Ship>();
+			while (waitingline.isEmpty() == false) {
+				Ship ship = waitingline.front();
+
+				tempQue.enqueue(ship);
+
+				waitingline.dequeue();
+			}
+			while(!tempQue.isEmpty()) {
+				if (!tempQue.front().getName().equals(pname)) {
+					waitingline.enqueue(tempQue.front());
+			
+				}
+				
+				if(!tempQue.front().getName().equals(pname)) {
+					tempQue.dequeue();
+				}
+					
+			
+
+			}
+		
+		
+		return false;
+		
+	}
 
 	public int countShipsInHarbour() {
 		// TODO
 		return -1;
 	}
 
-	public int giveFirstFreeAnchorage() {
-		// TODO
-		return -1;		
-	}
+
 
 	public boolean leave(String leavingShipName) {
 		// TODO

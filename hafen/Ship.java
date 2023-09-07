@@ -171,6 +171,14 @@ public boolean checkIfFits(Container newContainer) {
 				+ ", goes to " + destination;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	/*
 	 * Hilfsmethode zum Ausgeben der Ladung
 	 */
@@ -179,6 +187,8 @@ public boolean checkIfFits(Container newContainer) {
 			System.out.println(loadedContainers[i]);
 		}
 	}
+	
+	
 
 	/*
 	 * Hilfsmethode zum Erzeugen einer Beispielbeladung
