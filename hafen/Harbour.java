@@ -17,7 +17,7 @@ public class Harbour {
 	private StackWithViewer<Container> containerStackForSort;
 	private QueueWithViewer<Ship> waitingline;
 
-//Fff
+	//Fff
 	// das folgende Attribut ist nur zu Testzwecken vorhanden, es muss ansonsten nicht beachtet werden
 	Ship testship = new Ship("Testship I", 187.45, "Hamburg",10);
 
@@ -25,7 +25,7 @@ public class Harbour {
 	public Harbour(String country, String city, int size) {		
 		this.country = country;
 		this.city = city;//
-	
+
 		this.shipsAtAnchor = new Ship[size];
 		waitingline = new QueueWithViewer<Ship>();
 
@@ -49,8 +49,8 @@ public class Harbour {
 		shipsAtAnchor[03] = s4;
 		Ship s5 = new Ship("S5", 1000, "Antwerpen", 1);
 		shipsAtAnchor[04] = s5;
-		
-		
+
+
 	}
 	public void createline() {
 		Ship s1 = new Ship("S1", 1000, "Lisbon", 1);
@@ -58,15 +58,15 @@ public class Harbour {
 		Ship s3 = new Ship("S3", 1000, "Shanghai", 1);
 		Ship s4 = new Ship("S4", 1000, "Antwerpen", 1);
 		Ship s5 = new Ship("S5", 1000, "Antwerpen", 1);
-		
-		
+
+
 		waitingline.enqueue(s1);
 		waitingline.enqueue(s2);
 		waitingline.enqueue(s3);
 		waitingline.enqueue(s4);
 		waitingline.enqueue(s5);
-	
-		
+
+
 	}
 
 
@@ -262,58 +262,58 @@ public class Harbour {
 
 
 	public void optimalVerladen(){
-		
+
 		while(!containerStack.isEmpty()) {
 
-		for (int i = 0; i < shipsAtAnchor.length; i++) {
-			Ship cuShip = shipsAtAnchor[i];
-				
-			if(!containerStack.isEmpty()) {
-			Container Cucontainer= containerStack.top();
-			
-			
-			if (cuShip != null&& Cucontainer!= null ) {
-								
-				if (Cucontainer.getDestination().equals(cuShip.getDestination())){
-					
-					if (cuShip.checkIfFits(Cucontainer) == true) {
-						cuShip.load(Cucontainer);
-						containerStack.pop();
-						
-					}else System.out.println(" kein platz");
-				}else System.out.println("Kein schiff");
-				
-			}
-//
+			for (int i = 0; i < shipsAtAnchor.length; i++) {
+				Ship cuShip = shipsAtAnchor[i];
 
-		}
+				if(!containerStack.isEmpty()) {
+					Container Cucontainer= containerStack.top();
+
+
+					if (cuShip != null&& Cucontainer!= null ) {
+
+						if (Cucontainer.getDestination().equals(cuShip.getDestination())){
+
+							if (cuShip.checkIfFits(Cucontainer) == true) {
+								cuShip.load(Cucontainer);
+								containerStack.pop();
+
+							}else System.out.println(" kein platz");
+						}else System.out.println("Kein schiff");
+
+					}
+					//
+
+				}
+			}
 		}
 	}
- }
-	
+
 	public double approxWaitingLine() {
 		double result = 0;
 		QueueWithViewer<Ship> tempQue = new QueueWithViewer<Ship>();
-		
+
 		while(!waitingline.isEmpty()) {
 			result = result+2.5;
 			tempQue.enqueue(waitingline.front());
 			waitingline.dequeue();
-			
+
 		}	while(!tempQue.isEmpty()) {
-	
+
 			waitingline.enqueue(tempQue.front());
 			tempQue.dequeue();
-			
+
 		}
-	
+
 		return result;
 	}
-	
-	
+
+
 	public int numberOfFirstEmptyPositionAtAnchor() {
 		for(int i =0; i <shipsAtAnchor.length; i++) {
-			
+
 			System.out.println(shipsAtAnchor);
 
 			Ship currenShip = shipsAtAnchor[i];
@@ -325,7 +325,7 @@ public class Harbour {
 
 		return -1;
 	}
-	
+
 	public Ship findShipInLine() {
 		Ship result  = null;
 		QueueWithViewer<Ship> tempQue = new QueueWithViewer<Ship>();
@@ -364,33 +364,33 @@ public class Harbour {
 
 		}
 	}
-	
+
 	public void allEnterHarbour(){
-		
+
 		printShips();
 		System.out.println("____________________________________________");
 		while (waitingline.isEmpty() == false) {
 			Ship ship = waitingline.front();
-		
 
-				if (numberOfFirstEmptyPositionAtAnchor() != -1) {
-					shipsAtAnchor[this.numberOfFirstEmptyPositionAtAnchor()]= ship;
-					waitingline.dequeue();
-					
-				}else
-					System.out.println("kein Platz");
-			
-			
-			
+
+			if (numberOfFirstEmptyPositionAtAnchor() != -1) {
+				shipsAtAnchor[this.numberOfFirstEmptyPositionAtAnchor()]= ship;
+				waitingline.dequeue();
+
+			}else
+				System.out.println("kein Platz");
+
+
+
 		}
 		System.out.println("____________________________________________");
 		printShips();
 		System.out.println("____________________________________________");
 	}
-	
-	
-	public boolean toFront(String pname) {
 
+
+	/*public boolean toFront(String pname) {
+			boolean found = false;
 			QueueWithViewer<Ship> tempQue = new QueueWithViewer<Ship>();
 			while (waitingline.isEmpty() == false) {
 				Ship ship = waitingline.front();
@@ -399,25 +399,26 @@ public class Harbour {
 
 				waitingline.dequeue();
 			}
-			while(!tempQue.isEmpty()) {
-				if (!tempQue.front().getName().equals(pname)) {
+			while(!tempQue.isEmpty()&& found == false) {
+				if (tempQue.front().getName().equals(pname)) {
 					waitingline.enqueue(tempQue.front());
-			
-				}
-				
-				if(!tempQue.front().getName().equals(pname)) {
 					tempQue.dequeue();
+
 				}
-					
-			
-
 			}
-		
-		
-		return false;
-		
-	}
 
+
+		return false;
+
+	}
+	 */
+	public boolean toFront1(String pname) {
+		while(waitingline.isEmpty() == false) {
+
+		}
+		return false;
+
+	}
 	public int countShipsInHarbour() {
 		// TODO
 		return -1;
