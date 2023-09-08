@@ -24,7 +24,7 @@ public class Harbour {
 
 	public Harbour(String country, String city, int size) {		
 		this.country = country;
-		this.city = city;
+		this.city = city;//
 	
 		this.shipsAtAnchor = new Ship[size];
 		waitingline = new QueueWithViewer<Ship>();
