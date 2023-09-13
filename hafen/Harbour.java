@@ -406,17 +406,44 @@ public class Harbour {
 
 				}
 			}
-
+//
 
 		return false;
 
 	}
-	 */
-	public boolean toFront1(String pname) {
+	 *///
+	public boolean toFront1(String pship) {
+		boolean found = false;
+		System.out.println(pship+"pShip");
+		QueueWithViewer<Ship> q1 = new QueueWithViewer<Ship>();
+		QueueWithViewer<Ship> temp = new QueueWithViewer<Ship>();
 		while(waitingline.isEmpty() == false) {
+			Ship s1 = waitingline.front();
 
+			System.out.println(s1.getName()+"CurrenShip");
+			if (pship.equals(s1.getName())) {
+				q1.enqueue(s1);
+				found = true;
+				waitingline.dequeue();
+			}else if (!pship.equals(s1.getName()) ) {
+				temp.enqueue(s1);
+				waitingline.dequeue();
+			}
 		}
-		return false;
+		while (!q1.isEmpty()) {
+			waitingline.enqueue(q1.front());
+			q1.dequeue();
+		}
+
+		while(!temp.isEmpty()) {
+			waitingline.enqueue(temp.front());
+			temp.dequeue();
+		}
+
+
+		System.out.println(waitingline.front()+" Erste schiff");
+
+		return found;
 
 	}
 	public int countShipsInHarbour() {
